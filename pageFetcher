@@ -1,0 +1,19 @@
+const fs = require('fs');
+const request = require('request');
+
+const newUrl = process.argv[3]
+const newLink = process.argv[2]
+request(`${newLink}`, (error, response, body) => {
+    if (error) {
+        console.log("You are not able to access the link.")
+        return
+    }
+    fs.writeFile(`${newUrl}`, body, err => {
+        if (err) {
+            console.log("You are not able to write to the file.")
+        } else {
+            console.log(`Download and saved ${body.length} bytes to ${newUrl}`)
+        }
+    });
+
+});
